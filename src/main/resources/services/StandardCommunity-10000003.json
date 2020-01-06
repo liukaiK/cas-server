@@ -1,0 +1,8 @@
+{
+  "@class": "org.apereo.cas.services.RegexRegisteredService",
+  "serviceId": "standard-community",
+  "name": "StandardCommunity",
+  "description": "标准化社区",
+  "id": 10000003,
+  "evaluationOrder": 11
+}

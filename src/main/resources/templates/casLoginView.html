@@ -8,45 +8,6 @@
     <title>欢迎登录</title>
     <link th:href="@{/css/login.css}" rel="stylesheet">
     <script th:src="@{/js/jquery-1.12.4.min.js}"></script>
-    <script th:src="@{/js/login.js}"></script>
-    <script>
-        $(document).ready(function () {
-            var service = GetQueryString("service");
-            if (service == null) {
-                service = $("#service").val();
-            }
-            console.info("service：" + service);
-            $("#service").val(service); // 受访受限url的地址
-            // 新进行判断用户是否登录过
-            // $.ajax({
-            //     method: "GET",
-            //     url: "/sso/check",
-            //     data: {'service': service},
-            //     xhrFields: {
-            //         withCredentials: true
-            //     },
-            //     crossDomain: true,
-            //     dataType: "jsonp",
-            //     jsonp: "callback",
-            //     // cache: false,
-            //     success: function (result) {
-            //         console.info("请求成功");
-            //         console.info(result);
-            //         if (result.status == 1) {
-            //             // 设置 302 重定向跳转
-            //             window.location.href = result.data;
-            //         } else {
-            //             // 显示登录页面
-            //             $("#mask").hide();
-            //         }
-            //     },
-            //     error: function (data) {
-            //         console.info("请求失败");
-            //         $("#mask").hide();
-            //     }
-            // });
-        });
-    </script>
 </head>
 
 <body>
@@ -54,7 +15,7 @@
 <main class="container">
     <div id="loginDiv" class="card">
         <div class="card-body">
-            <form method="post" id="fm1" action="http://106.74.154.84:9191/sso/login">
+            <form method="post" id="fm1" th:action="@{/login}">
                 <div>
                     <img th:src="@{/images/logo.png}" style="margin-left: 43px;">
                 </div>
@@ -74,8 +35,9 @@
                                autocomplete="off" placeholder="请输入密码">
                     </div>
                 </section>
-                <input type="hidden" name="source" id="source" value="aicity/login">
-                <input type="hidden" name="service" id="service" value="http://106.74.154.84:3000/v1/index">
+                <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
+                <input type="hidden" name="_eventId" value="submit"/>
+                <input type="hidden" name="geolocation"/>
                 <div class="btn-group">
                     <button class="btn btn-block btn-submit" name="submit" type="submit">登
                         录

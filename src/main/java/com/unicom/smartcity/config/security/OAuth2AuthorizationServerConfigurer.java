@@ -4,7 +4,6 @@ import com.unicom.smartcity.service.PasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -32,9 +31,6 @@ public class OAuth2AuthorizationServerConfigurer extends AuthorizationServerConf
 
 //    @Autowired
 //    private WebResponseExceptionTranslator oauth2ResponseExceptionTranslator;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private PasswordService passwordService;

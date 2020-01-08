@@ -1,6 +1,6 @@
 {
   "@class": "org.apereo.cas.services.RegexRegisteredService",
-  "serviceId": "standard-community",
+  "serviceId": "^(https|http)://cas.king.com:8880",
   "name": "StandardCommunity",
   "description": "标准化社区",
   "id": 10000003,

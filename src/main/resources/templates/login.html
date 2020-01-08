@@ -35,9 +35,7 @@
                                autocomplete="off" placeholder="请输入密码">
                     </div>
                 </section>
-                <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
-                <input type="hidden" name="_eventId" value="submit"/>
-                <input type="hidden" name="geolocation"/>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 <div class="btn-group">
                     <button class="btn btn-block btn-submit" name="submit" type="submit">登
                         录

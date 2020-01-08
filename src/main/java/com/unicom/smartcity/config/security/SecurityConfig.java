@@ -20,12 +20,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 //    @Autowired
-//    private SmsCodeSecurityConfigurer smsCodeSecurityConfigurer;
-//
-//    @Autowired
-//    private CasSecurityConfigurer casSecurityConfigurer;
-//
-//    @Autowired
 //    private AuthenticationSuccessHandler browserAuthenticationSuccessHandler;
 //
 //    @Autowired
@@ -51,8 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .failureHandler(browserAuthenticationFailureHandler)
 //                .and().authorizeRequests().anyRequest().authenticated()
 //                .and().headers().frameOptions().sameOrigin();
-//        http.csrf().disable();
-//        http.apply(smsCodeSecurityConfigurer);
 //        http.exceptionHandling().authenticationEntryPoint(casAuthenticationEntryPoint);
 //        http.authorizeRequests().antMatchers(HttpMethod.GET, "/login").permitAll().anyRequest().authenticated();
 //        http.addFilterBefore(new RestUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

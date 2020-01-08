@@ -7,6 +7,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author liukai
+ */
 @Slf4j
 @Component("restAuthenticationProvider")
 public class RestAuthenticationProvider implements AuthenticationProvider {

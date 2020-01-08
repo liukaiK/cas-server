@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * oauth2 授权服务
+ * OAuth2 授权服务
  *
  * @author liukai
  */

@@ -1,15 +1,15 @@
 package com.unicom.smartcity.service.impl;
 
-import org.springframework.security.oauth2.provider.ClientDetails;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.ClientRegistrationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-public class ClientDetailsServiceImpl implements ClientDetailsService {
+public class ClientDetailsServiceImpl implements UserDetailsService {
+
 
     @Override
-    public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return null;
     }
-
 
 }

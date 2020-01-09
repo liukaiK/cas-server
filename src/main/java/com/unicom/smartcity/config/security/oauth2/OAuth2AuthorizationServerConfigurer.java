@@ -1,4 +1,4 @@
-package com.unicom.smartcity.config.security;
+package com.unicom.smartcity.config.security.oauth2;
 
 import com.unicom.smartcity.service.PasswordService;
 import org.springframework.beans.factory.annotation.Autowired;

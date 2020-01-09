@@ -1,10 +1,10 @@
 package com.unicom.smartcity.config.security;
 
+import com.unicom.smartcity.config.security.rest.RestSecurityConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,51 +18,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity(debug = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
-//    @Autowired
-//    private AuthenticationSuccessHandler browserAuthenticationSuccessHandler;
-//
-//    @Autowired
-//    private AuthenticationFailureHandler browserAuthenticationFailureHandler;
-//
-//    @Autowired
-//    private AuthenticationEntryPoint casAuthenticationEntryPoint;
-
     @Autowired
-    private AuthenticationProvider restAuthenticationProvider;
+    private RestSecurityConfigurer casSecurityConfigurer;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/login").permitAll().anyRequest().authenticated();
 
-        http.formLogin().loginPage("/login").permitAll().and().authorizeRequests().anyRequest().authenticated();
+        http.exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"));
 
-        http.authenticationProvider(restAuthenticationProvider);
+        http.apply(casSecurityConfigurer);
 
-//        http.formLogin()
-//                .loginPage("/login").permitAll()
-//                .successHandler(browserAuthenticationSuccessHandler)
-//                .failureHandler(browserAuthenticationFailureHandler)
-//                .and().authorizeRequests().anyRequest().authenticated()
-//                .and().headers().frameOptions().sameOrigin();
-//        http.exceptionHandling().authenticationEntryPoint(casAuthenticationEntryPoint);
-//        http.authorizeRequests().antMatchers(HttpMethod.GET, "/login").permitAll().anyRequest().authenticated();
-//        http.addFilterBefore(new RestUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(browserUserDetailsService()).passwordEncoder(bCryptPasswordEncoder());
-    }
-
-//    @Bean
-//    public UserDetailsService browserUserDetailsService() {
-//        return new BrowserUserDetailsService();
-//    }
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/js/**", "/css/**", "/lib/**", "/images/**", "/favicon.ico", "/v2/api-docs", "/swagger-ui.html", "/webjars/**", "/swagger-resources/**");
+        web.ignoring().antMatchers("/js/**", "/css/**", "/lib/**", "/images/**", "/favicon.ico");
     }
 
     @Bean

@@ -10,6 +10,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+
+import javax.sql.DataSource;
 
 /**
  * OAuth2 授权服务
@@ -23,24 +26,28 @@ public class OAuth2AuthorizationServerConfigurer extends AuthorizationServerConf
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private DataSource dataSource;
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.withClientDetails(JPAClientDetailsService());
     }
 
-    @Bean
-    public ClientDetailsService JPAClientDetailsService() {
-        return new JPAClientDetailsService();
-    }
-
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints.authenticationManager(authenticationManager);
+        endpoints.tokenStore(new JdbcTokenStore(dataSource));
     }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
-        security.allowFormAuthenticationForClients();
+        security.checkTokenAccess("isAuthenticated()");
+    }
+
+    @Bean
+    public ClientDetailsService JPAClientDetailsService() {
+        return new JPAClientDetailsService();
     }
 
 }

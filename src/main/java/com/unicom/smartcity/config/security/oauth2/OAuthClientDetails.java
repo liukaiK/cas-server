@@ -44,6 +44,10 @@ public class OAuthClientDetails implements ClientDetails {
 
     private String scope;
 
+    private Integer accessTokenValiditySeconds;
+
+    private Integer refreshTokenValiditySeconds;
+
     @Override
     public String getClientId() {
         return this.clientId;
@@ -91,12 +95,12 @@ public class OAuthClientDetails implements ClientDetails {
 
     @Override
     public Integer getAccessTokenValiditySeconds() {
-        return null;
+        return this.accessTokenValiditySeconds;
     }
 
     @Override
     public Integer getRefreshTokenValiditySeconds() {
-        return null;
+        return this.refreshTokenValiditySeconds;
     }
 
     @Override

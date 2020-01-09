@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface OAuthClientDetailsRepository extends JpaRepository<OAuthClientDetails, String>, JpaSpecificationExecutor<OAuthClientDetails> {
 
-    Optional<OAuthClientDetails> findByClientId(String clientId);
+    Optional<OAuthClientDetails> getByClientId(String clientId);
 
 }

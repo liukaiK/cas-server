@@ -20,7 +20,7 @@ public class JPAClientDetailsService implements ClientDetailsService {
     @Override
     @Transient
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
-        Optional<OAuthClientDetails> client = OAuthClientDetailsRepository.findByClientId(clientId);
+        Optional<OAuthClientDetails> client = OAuthClientDetailsRepository.getByClientId(clientId);
         if (client.isPresent()) {
             return client.get();
         }

@@ -15,11 +15,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 /**
  * @author liukai
  */
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = false)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private RestSecurityConfigurer casSecurityConfigurer;
+    private RestSecurityConfigurer restSecurityConfigurer;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"));
 
-        http.apply(casSecurityConfigurer);
+        http.apply(restSecurityConfigurer);
 
     }
 

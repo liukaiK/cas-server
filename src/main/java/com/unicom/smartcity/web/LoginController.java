@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 
+    /**
+     * 跳转到登录页面
+     *
+     * @param clientId 在系统中认证过的应用的clientId
+     */
     @GetMapping("/login")
     public String login(@RequestParam(value = "client_id") String clientId, Model model) {
         model.addAttribute("clientId", clientId);

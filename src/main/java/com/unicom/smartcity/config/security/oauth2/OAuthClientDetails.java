@@ -44,6 +44,8 @@ public class OAuthClientDetails implements ClientDetails {
 
     private String scope;
 
+    private String loginUrl;
+
     private Integer accessTokenValiditySeconds;
 
     private Integer refreshTokenValiditySeconds;
@@ -111,6 +113,10 @@ public class OAuthClientDetails implements ClientDetails {
     @Override
     public Map<String, Object> getAdditionalInformation() {
         return null;
+    }
+
+    public String getLoginUrl() {
+        return loginUrl;
     }
 
 

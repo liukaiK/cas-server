@@ -1,6 +1,6 @@
-package com.unicom.smartcity.config.security;
+package com.unicom.smartcity.security;
 
-import com.unicom.smartcity.config.security.rest.RestSecurityConfigurer;
+import com.unicom.smartcity.security.rest.RestSecurityConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;

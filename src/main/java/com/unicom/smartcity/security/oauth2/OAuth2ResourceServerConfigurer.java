@@ -1,4 +1,4 @@
-package com.unicom.smartcity.config.security.oauth2;
+package com.unicom.smartcity.security.oauth2;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

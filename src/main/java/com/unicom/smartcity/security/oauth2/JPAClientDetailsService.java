@@ -1,4 +1,4 @@
-package com.unicom.smartcity.config.security.oauth2;
+package com.unicom.smartcity.security.oauth2;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.ClientDetails;

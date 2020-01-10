@@ -1,4 +1,4 @@
-package com.unicom.smartcity.config.security.rest;
+package com.unicom.smartcity.security.rest;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

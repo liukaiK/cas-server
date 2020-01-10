@@ -1,4 +1,4 @@
-package com.unicom.smartcity.config.security.rest;
+package com.unicom.smartcity.security.rest;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationServiceException;

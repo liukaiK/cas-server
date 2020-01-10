@@ -1,6 +1,8 @@
 package com.unicom.smartcity.security.rest;
 
 import com.unicom.smartcity.exception.BadClientIdException;
+import com.unicom.smartcity.exception.HttpErrorException;
+import com.unicom.smartcity.exception.RestLoginException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -22,10 +24,18 @@ public class RestAuthenticationFailureHandler implements AuthenticationFailureHa
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        log.info("{}", exception);
         if (exception instanceof BadClientIdException) {
 
         }
+
+        if (exception instanceof RestLoginException) {
+            log.info(exception.getMessage());
+        }
+
+        if (exception instanceof HttpErrorException) {
+            log.info(exception.getMessage());
+        }
+        
     }
 
 }

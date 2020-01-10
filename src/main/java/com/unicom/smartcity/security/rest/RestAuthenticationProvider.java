@@ -1,6 +1,7 @@
 package com.unicom.smartcity.security.rest;
 
 import com.unicom.smartcity.exception.BadClientIdException;
+import com.unicom.smartcity.exception.HttpErrorException;
 import com.unicom.smartcity.security.oauth2.OAuthClientDetails;
 import com.unicom.smartcity.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
@@ -53,6 +54,7 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
             loginService.login(loginUrl, username, password);
         } catch (RestClientException e) {
             log.error("调用登录接口{}失败 ", loginUrl, e);
+            throw new HttpErrorException("调用登录接口{}失败 " + loginUrl);
         }
 
 

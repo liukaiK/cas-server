@@ -1,11 +1,13 @@
 package com.unicom.smartcity.service.impl;
 
+import com.unicom.smartcity.exception.HttpErrorException;
 import com.unicom.smartcity.exception.RestLoginException;
 import com.unicom.smartcity.security.LoginResponse;
 import com.unicom.smartcity.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -29,16 +31,17 @@ public class RestLoginService implements LoginService {
         HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(paramMap);
         ResponseEntity<LoginResponse> responseEntity = restTemplate.exchange(loginUrl, HttpMethod.POST, httpEntity, LoginResponse.class);
 
-        if (loginFailure(responseEntity)) {
+
+        if (responseEntity.getStatusCodeValue() != HttpStatus.OK.value()) {
+            throw new HttpErrorException("HTTP响应码不是200");
+        }
+
+
+        if (responseEntity.getBody() == null) {
             throw new RestLoginException("登录失败: " + responseEntity.getBody().getMessage());
         }
 
 
     }
-
-    private boolean loginFailure(ResponseEntity<LoginResponse> responseEntity) {
-        return !"0".equals(responseEntity.getBody().getCode());
-    }
-
 
 }

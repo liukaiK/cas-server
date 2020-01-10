@@ -18,7 +18,7 @@ public class OAuth2ResourceServerConfigurer extends ResourceServerConfigurerAdap
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/redirect/**").authorizeRequests().anyRequest().authenticated();
+        http.antMatcher("/v1/**").authorizeRequests().anyRequest().authenticated();
     }
 
 

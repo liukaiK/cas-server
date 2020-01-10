@@ -8,7 +8,7 @@
 获取code  
 
 GET请求  
-http://cas.unicom.com:8080/oauth/authorize?response_type=code&client_id=community&redirect_uri=http://www.community.com
+http://cas.unicom.com:8080/oauth/authorize?response_type=code&client_id=community&redirect_uri=http://www.community.com:8081/login/oauth2/code/community
 
 
 获取token  
@@ -17,4 +17,6 @@ POST请求
 http://cas.unicom.com:8080/oauth/token  
 Content-Type: application/x-www-form-urlencoded
 Authorization: Basic Y29tbXVuaXR5OjEyMzQ1Ng==
-grant_type=authorization_code&code=4PBTYU&redirect_uri=http://www.community.com
+grant_type=authorization_code&code=4PBTYU&redirect_uri=http://www.community.com:8081/login/oauth2/code/community
+
+

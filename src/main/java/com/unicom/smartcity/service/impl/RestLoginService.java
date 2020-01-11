@@ -20,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class RestLoginService implements LoginService {
 
+
     @Autowired
     private RestTemplate restTemplate;
 
@@ -32,16 +33,29 @@ public class RestLoginService implements LoginService {
         ResponseEntity<LoginResponse> responseEntity = restTemplate.exchange(loginUrl, HttpMethod.POST, httpEntity, LoginResponse.class);
 
 
-        if (responseEntity.getStatusCodeValue() != HttpStatus.OK.value()) {
+        if (httpError(responseEntity)) {
             throw new HttpErrorException("HTTP响应码不是200");
         }
 
 
         if (responseEntity.getBody() == null) {
-            throw new RestLoginException("登录失败: " + responseEntity.getBody().getMessage());
+            throw new RestLoginException("登录失败: ");
+        }
+
+        if (loginFailure(responseEntity)) {
+            throw new RestLoginException(responseEntity.getBody().getMessage());
         }
 
 
+    }
+
+    private boolean loginFailure(ResponseEntity<LoginResponse> responseEntity) {
+        String code = responseEntity.getBody().getCode();
+        return !"1".equals(code);
+    }
+
+    private boolean httpError(ResponseEntity<LoginResponse> responseEntity) {
+        return responseEntity.getStatusCodeValue() != HttpStatus.OK.value();
     }
 
 }

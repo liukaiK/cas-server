@@ -53,7 +53,7 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
         try {
             loginService.login(loginUrl, username, password);
         } catch (RestClientException e) {
-            log.error("调用登录接口{}失败 ", loginUrl, e);
+            log.debug("调用登录接口{}失败 ", loginUrl);
             throw new HttpErrorException("调用登录接口{}失败 " + loginUrl);
         }
 

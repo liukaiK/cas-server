@@ -15,12 +15,12 @@ import java.util.Optional;
 public class JPAClientDetailsService implements ClientDetailsService {
 
     @Autowired
-    private OAuthClientDetailsRepository OAuthClientDetailsRepository;
+    private OAuthClientDetailsRepository clientDetailsRepository;
 
     @Override
     @Transient
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
-        Optional<OAuthClientDetails> client = OAuthClientDetailsRepository.getByClientId(clientId);
+        Optional<OAuthClientDetails> client = clientDetailsRepository.getByClientId(clientId);
         if (client.isPresent()) {
             return client.get();
         }

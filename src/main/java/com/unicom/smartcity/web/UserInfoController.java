@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author liukai
@@ -16,11 +18,20 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class UserInfoController {
 
-    @GetMapping("/userinfo")
-    public Authentication getUserInfo(HttpServletRequest request, Authentication authentication) {
+//    @GetMapping("/userinfo")
+//    public Authentication getUserInfo(HttpServletRequest request, Authentication authentication) {
+//
+//        log.info("{}调用了userinfo接口", request.getRequestURI());
+//        return authentication;
+//    }
 
+
+    @GetMapping("/userinfo")
+    public Map<String, Object> getUserInfo(HttpServletRequest request, Authentication authentication) {
+        Map<String, Object> map = new HashMap<>();
         log.info("{}调用了userinfo接口", request.getRequestURI());
-        return authentication;
+        map.put("username", authentication.getPrincipal().toString());
+        return map;
     }
 
 }

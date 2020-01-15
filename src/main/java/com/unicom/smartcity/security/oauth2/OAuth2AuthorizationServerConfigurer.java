@@ -10,9 +10,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
-
-import javax.sql.DataSource;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 /**
  * OAuth2 授权服务
@@ -27,7 +26,10 @@ public class OAuth2AuthorizationServerConfigurer extends AuthorizationServerConf
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private DataSource dataSource;
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
+
+    @Autowired
+    private TokenStore jwtTokenStore;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -37,7 +39,8 @@ public class OAuth2AuthorizationServerConfigurer extends AuthorizationServerConf
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints.authenticationManager(authenticationManager);
-        endpoints.tokenStore(new JdbcTokenStore(dataSource));
+        endpoints.tokenStore(jwtTokenStore);
+        endpoints.tokenEnhancer(jwtAccessTokenConverter);
     }
 
     @Override

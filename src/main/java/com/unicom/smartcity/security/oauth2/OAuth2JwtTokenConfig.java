@@ -9,7 +9,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import java.util.UUID;
 
 /**
- * 配置token存储和JWT配置
+ * 配置token存储和JWT
  *
  * @author liukai
  */

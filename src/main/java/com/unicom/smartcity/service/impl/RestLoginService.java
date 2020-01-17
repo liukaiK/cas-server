@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -50,8 +51,9 @@ public class RestLoginService implements LoginService {
     }
 
     private boolean loginFailure(ResponseEntity<LoginResponse> responseEntity) {
-        String code = responseEntity.getBody().getCode();
-        return !"1".equals(code);
+        Assert.notNull(responseEntity.getBody(), "body must not be empty");
+        String loginSuccessCode = "1";
+        return !loginSuccessCode.equals(responseEntity.getBody().getCode());
     }
 
     private boolean httpError(ResponseEntity<LoginResponse> responseEntity) {

@@ -1,13 +1,12 @@
 package com.unicom.smartcity.servlet;
 
-//import org.apache.commons.logging.Log;
-//import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 /**
  * 登录servlet
@@ -16,20 +15,20 @@ import java.io.IOException;
  */
 public class LoginServlet extends HttpServlet {
 
-//    private Log logger = LogFactory.getLog(LoginServlet.class);
-
+    private Logger logger = Logger.getLogger(this.getClass().toString());
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/login.jsp").forward(request, response);
+        request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
-//        logger.info(username);
+        logger.info("username: " + username);
         String password = request.getParameter("password");
-//        logger.info(password);
-
+        logger.info("password: " + password);
     }
+
+
 }

@@ -8,7 +8,7 @@
 <main class="container">
     <div id="loginDiv" class="card">
         <div class="card-body">
-            <form method="post" id="fm1" th:action="@{/login}">
+            <form method="post" id="fm1" action="/login">
                 <div>
                     <img th:src="@{/images/logo.png}" style="margin-left: 43px;">
                 </div>

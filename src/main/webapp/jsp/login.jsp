@@ -2,6 +2,10 @@
 <html>
 <head>
     <title>登录</title>
+    <%
+        String contextPath = request.getContextPath();
+    %>
+    <link href="<%=contextPath%>/css/login.css" rel="stylesheet">
 </head>
 <body>
 <div id="mask" class="mask" style="display: none;"></div>
@@ -10,7 +14,7 @@
         <div class="card-body">
             <form method="post" id="fm1" action="/login">
                 <div>
-                    <img th:src="@{/images/logo.png}" style="margin-left: 43px;">
+                    <img src="<%=contextPath%>/images/logo.png" style="margin-left: 43px;">
                 </div>
                 <!-- <div class="title">欢迎登录</div> -->
                 <div class="error"></div>

@@ -6,7 +6,7 @@
          version="4.0">
 
     <listener>
-        <listener-class>com.unicom.smartcity.listener.SpringServletContextListener</listener-class>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
     <servlet>

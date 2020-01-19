@@ -1,0 +1,37 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>登录</title>
+</head>
+<body>
+<div id="mask" class="mask" style="display: none;"></div>
+<main class="container">
+    <div id="loginDiv" class="card">
+        <div class="card-body">
+            <form method="post" id="fm1" th:action="@{/login}">
+                <div>
+                    <img th:src="@{/images/logo.png}" style="margin-left: 43px;">
+                </div>
+                <!-- <div class="title">欢迎登录</div> -->
+                <div class="error"></div>
+                <section class="form-group">
+                    <!-- <label for="username">用户名</label> -->
+                    <div class="input-wrapper">
+                        <input class="form-control required" id="username" name="username" type="text" autocomplete="off" placeholder="请输入账号">
+                    </div>
+                </section>
+                <section class="form-group">
+                    <!-- <label for="password">密码</label> -->
+                    <div class="input-wrapper">
+                        <input class="form-control required" type="password" id="password" name="password" autocomplete="off" placeholder="请输入密码">
+                    </div>
+                </section>
+                <div class="btn-group">
+                    <button class="btn btn-block btn-submit" name="submit" type="submit">登 录</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+</body>
+</html>

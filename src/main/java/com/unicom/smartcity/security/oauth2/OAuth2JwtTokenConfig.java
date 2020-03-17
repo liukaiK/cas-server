@@ -17,8 +17,8 @@ import java.util.UUID;
 public class OAuth2JwtTokenConfig {
 
     @Bean
-    public TokenStore jwtTokenStore() {
-        return new JwtTokenStore(jwtAccessTokenConverter());
+    public TokenStore jwtTokenStore(JwtAccessTokenConverter jwtAccessTokenConverter) {
+        return new JwtTokenStore(jwtAccessTokenConverter);
     }
 
     @Bean

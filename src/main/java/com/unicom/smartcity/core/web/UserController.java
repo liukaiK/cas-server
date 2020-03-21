@@ -1,6 +1,6 @@
-package com.unicom.smartcity.web;
+package com.unicom.smartcity.core.web;
 
-import com.unicom.smartcity.service.UserService;
+import com.unicom.smartcity.core.service.UserService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;

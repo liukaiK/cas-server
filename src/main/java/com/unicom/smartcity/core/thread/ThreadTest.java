@@ -1,4 +1,4 @@
-package com.unicom.smartcity.thread;
+package com.unicom.smartcity.core.thread;
 
 /**
  * 多线程的创建

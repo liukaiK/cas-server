@@ -1,4 +1,4 @@
-package com.unicom.smartcity.aop;
+package com.unicom.smartcity.framework.aop;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;

@@ -1,6 +1,7 @@
-package com.unicom.smartcity.service;
+package com.unicom.smartcity.core.service.impl;
 
-import com.unicom.smartcity.pojo.User;
+import com.unicom.smartcity.core.pojo.User;
+import com.unicom.smartcity.core.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

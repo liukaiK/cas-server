@@ -1,4 +1,4 @@
-package com.unicom.smartcity.pojo;
+package com.unicom.smartcity.core.pojo;
 
 public class User {
 

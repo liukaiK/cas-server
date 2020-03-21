@@ -1,4 +1,4 @@
-package com.unicom.smartcity.config;
+package com.unicom.smartcity.framework.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

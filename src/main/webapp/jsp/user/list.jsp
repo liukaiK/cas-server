@@ -3,10 +3,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>首页</title>
+    <title>list</title>
     <script src="<%=contextPath%>/lib/jquery-3.4.0.js"></script>
 </head>
 <body>
-<a href="<%=contextPath%>/users/list">用户管理</a>
+<table>
+
+
+</table>
 </body>
 </html>

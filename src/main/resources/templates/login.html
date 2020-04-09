@@ -16,7 +16,7 @@
         <div class="card-body">
             <form method="post" id="fm1" th:action="@{/login}">
                 <div>
-                    <img th:src="@{/images/logo.png}" style="margin-left: 43px;">
+                    <img th:src="@{/images/logo.png}" src="../static/images/logo.png" style="margin-left: 43px;">
                 </div>
                 <!-- <div class="title">欢迎登录</div> -->
                 <div class="error"></div>
@@ -40,14 +40,16 @@
 </main>
 </body>
 <script src="../static/lib/jquery-3.4.0.js" th:src="@{/lib/jquery-3.4.0.js}"></script>
-<script>
+<script th:inline="javascript">
     $('#username').focus();
+
+    var loginUrl = /*[[${/login}]]*/ '/login';
 
     function login() {
         var data = $('#fm1').serialize();
         $.ajax({
             type: 'POST',
-            url: './login',
+            url: loginUrl,
             data: data,
             success: function (result) {
                 if (result.code === 1) {

@@ -18,8 +18,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class RestSecurityConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
     @Autowired
     private AuthenticationFailureHandler restAuthenticationFailureHandler;
@@ -31,7 +29,7 @@ public class RestSecurityConfigurer extends SecurityConfigurerAdapter<DefaultSec
     @Override
     public void configure(HttpSecurity http) {
         RestUsernamePasswordAuthenticationFilter restUsernamePasswordAuthenticationFilter = new RestUsernamePasswordAuthenticationFilter();
-        restUsernamePasswordAuthenticationFilter.setAuthenticationManager(authenticationManager);
+        restUsernamePasswordAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
         restUsernamePasswordAuthenticationFilter.setAuthenticationFailureHandler(restAuthenticationFailureHandler);
         restUsernamePasswordAuthenticationFilter.setAuthenticationSuccessHandler(restAuthenticationSuccessHandler);
         http.addFilterBefore(restUsernamePasswordAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

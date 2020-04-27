@@ -17,7 +17,7 @@ public class SimpleResponse {
     /**
      * 返回状态码
      */
-    private Integer code;
+    private String code;
 
     /**
      * 返回信息描述
@@ -32,7 +32,7 @@ public class SimpleResponse {
 
     }
 
-    public SimpleResponse(Integer code, String message) {
+    public SimpleResponse(String code, String message) {
         this.code = code;
         this.message = message;
     }

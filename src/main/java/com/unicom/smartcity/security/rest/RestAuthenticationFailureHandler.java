@@ -42,7 +42,7 @@ public class RestAuthenticationFailureHandler implements AuthenticationFailureHa
             writer.write(objectMapper.writeValueAsString(SimpleResponse.failure(ResponseCode.REST_AUTHENTICATION_FAIL)));
         }
         if (exception instanceof RestLoginException) {
-            writer.write(objectMapper.writeValueAsString(new SimpleResponse(1231231231, exception.getMessage())));
+            writer.write(objectMapper.writeValueAsString(new SimpleResponse("1231231231", exception.getMessage())));
         }
         writer.close();
     }

@@ -37,7 +37,7 @@ public class RestAuthenticationSuccessHandler implements AuthenticationSuccessHa
         SavedRequest savedRequest = requestCache.getRequest(request, response);
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
         PrintWriter writer = response.getWriter();
-        writer.write(objectMapper.writeValueAsString(new SimpleResponse(1, savedRequest.getRedirectUrl())));
+        writer.write(objectMapper.writeValueAsString(new SimpleResponse("1", savedRequest.getRedirectUrl())));
         writer.close();
     }
 }

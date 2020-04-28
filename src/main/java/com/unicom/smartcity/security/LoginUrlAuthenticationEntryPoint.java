@@ -18,7 +18,7 @@ import java.io.IOException;
 public class LoginUrlAuthenticationEntryPoint extends org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint {
 
 
-    private RequestCache requestCache = new HttpSessionRequestCache();
+    private final RequestCache requestCache = new HttpSessionRequestCache();
 
     public LoginUrlAuthenticationEntryPoint(String loginFormUrl) {
         super(loginFormUrl);

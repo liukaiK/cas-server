@@ -15,6 +15,7 @@
     <div id="loginDiv" class="card">
         <div class="card-body">
             <form method="post" id="fm1" th:action="@{/login}">
+<!--                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
                 <div>
                     <img th:src="@{/images/logo.png}" src="../static/images/logo.png" style="margin-left: 43px;">
                 </div>

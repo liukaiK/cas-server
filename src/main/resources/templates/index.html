@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -9,6 +9,12 @@
 </head>
 
 <body>
+
+
+<p>Id: <span sec:authentication="name"></span></p>
+<p>Role: <span sec:authentication="authorities"></span></p>
+
+
 
 <p>
     <a href="http://127.0.0.1:8081/oauth2/authorization/cas">GIS</a>

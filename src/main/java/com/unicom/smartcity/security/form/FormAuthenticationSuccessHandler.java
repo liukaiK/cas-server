@@ -32,7 +32,7 @@ public class FormAuthenticationSuccessHandler implements AuthenticationSuccessHa
 
         log.info("AuthenticationSuccess targetUrl: {}", targetUrl);
 
-        response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+        response.setContentType(MediaType.APPLICATION_JSON.toString());
         PrintWriter writer = response.getWriter();
         writer.write(objectMapper.writeValueAsString(new SimpleResponse(ResponseCode.SUCCESS.getCode(), targetUrl)));
         writer.close();

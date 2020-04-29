@@ -37,8 +37,10 @@ public class OAuth2AuthorizationServerConfigurer extends AuthorizationServerConf
                 .secret(passwordEncoder.encode("123456"))
                 .autoApprove(true)
                 .redirectUris("http://127.0.0.1:8081/login/oauth2/code/cas")
+                .accessTokenValiditySeconds(300)
                 .authorizedGrantTypes(AuthorizationGrantType.AUTHORIZATION_CODE.getValue())
-                .scopes("userInfo");
+                .scopes("userInfo")
+                .resourceIds("cas-resource-server");
     }
 
     @Override

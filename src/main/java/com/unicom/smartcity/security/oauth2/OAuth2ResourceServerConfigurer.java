@@ -6,6 +6,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
 /**
  * OAuth2资源服务
@@ -20,6 +21,11 @@ public class OAuth2ResourceServerConfigurer extends ResourceServerConfigurerAdap
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/oauth2/api/**").authorizeRequests().anyRequest().authenticated();
+    }
+
+    @Override
+    public void configure(ResourceServerSecurityConfigurer resources) {
+        resources.resourceId("cas-resource-server");
     }
 
 }

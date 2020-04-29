@@ -21,7 +21,7 @@ public enum ResponseCode {
     /**
      * 认证错误 40001-49999
      */
-    AUTHENTICATION_FAIL("40001", "用户名或密码错误"),
+    AUTHENTICATION_FAIL("A0210", "用户名或密码错误"),
     SMS_CODE_ERROR("40002", "验证码错误"),
     UNSUPPORTED_GRANT_TYPE("40003", "无效的grant_type"),
     INVALID_SCOPE("40004", "无效的scope"),

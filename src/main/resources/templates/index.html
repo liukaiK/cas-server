@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>首页</title>
+</head>
+
+<body>
+
+<p>
+    <a href="http://127.0.0.1:8081/oauth2/authorization/cas">GIS</a>
+</p>
+
+<form th:action="@{/logout}" th:method="POST">
+    <input th:type="submit" value="退出"/>
+</form>
+
+</body>
+<script src="../static/lib/jquery-3.4.0.js" th:src="@{/lib/jquery-3.4.0.js}"></script>
+</html>

@@ -28,6 +28,10 @@
             <scope>runtime</scope>
             <type>war</type>
         </dependency>
+        <dependency>
+            <groupId>org.apereo.cas</groupId>
+            <artifactId>cas-server-support-json-service-registry</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

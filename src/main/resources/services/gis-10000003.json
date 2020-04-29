@@ -1,0 +1,8 @@
+{
+  "@class": "org.apereo.cas.services.RegexRegisteredService",
+  "serviceId": "^(https|http)://127.0.0.1:8081/cas/login/cas",
+  "name": "gis",
+  "id": 10000003,
+  "description": "gis-core-server",
+  "evaluationOrder": 1
+}

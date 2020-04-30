@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * @author liukai
@@ -26,6 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final static String LOGIN_PAGE_URL = "/login";
 
+    private final static String LOGOUT_URL = "/logout";
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -38,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(formAuthenticationSuccessHandler)
                 .failureHandler(formAuthenticationFailureHandler)
                 .and()
-                .logout().logoutSuccessUrl(LOGIN_PAGE_URL)
+                .logout().logoutSuccessUrl(LOGIN_PAGE_URL).logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT_URL, "GET"))
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(LOGIN_PAGE_URL));
 

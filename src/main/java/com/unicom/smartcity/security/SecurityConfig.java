@@ -1,9 +1,8 @@
 package com.unicom.smartcity.security;
 
+import com.unicom.smartcity.properties.SystemProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -25,25 +24,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationFailureHandler formAuthenticationFailureHandler;
 
-    private final static String LOGIN_PAGE_URL = "/login";
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
 
-    private final static String LOGOUT_URL = "/logout";
-
+    @Autowired
+    private SystemProperties systemProperties;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, LOGIN_PAGE_URL).permitAll()
+                .antMatchers(HttpMethod.GET, systemProperties.getLoginUrl()).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage(LOGIN_PAGE_URL)
+                .formLogin().loginPage(systemProperties.getLoginUrl())
                 .successHandler(formAuthenticationSuccessHandler)
                 .failureHandler(formAuthenticationFailureHandler)
                 .and()
-                .logout().logoutSuccessUrl(LOGIN_PAGE_URL).logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT_URL, "GET"))
+                .logout().logoutSuccessUrl(systemProperties.getLoginUrl())
+                //退出支持GET请求
+                .logoutRequestMatcher(new AntPathRequestMatcher(systemProperties.getLogoutUrl(), "GET"))
                 .and()
-                .exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(LOGIN_PAGE_URL));
+                .exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(systemProperties.getLoginUrl()))
+                .accessDeniedHandler(accessDeniedHandler);
 
     }
 
@@ -55,12 +58,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("unicom").password("$2a$10$MRvz/BeD7LsXNFfByECtfe7mQb21z7SNw.RwUXCAkKIc2XQ22qHg2").roles("CAS_ADMIN");
-    }
-
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
     }
 
 }

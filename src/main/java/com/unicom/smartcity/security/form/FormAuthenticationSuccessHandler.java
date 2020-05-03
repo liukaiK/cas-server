@@ -3,8 +3,8 @@ package com.unicom.smartcity.security.form;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.unicom.smartcity.enums.ResponseCode;
 import com.unicom.smartcity.pojo.SimpleResponse;
+import com.unicom.smartcity.util.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
@@ -15,8 +15,12 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
+/**
+ * d
+ *
+ * @author liukai
+ */
 @Slf4j
 @Component(value = "formAuthenticationSuccessHandler")
 public class FormAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
@@ -32,18 +36,15 @@ public class FormAuthenticationSuccessHandler implements AuthenticationSuccessHa
 
         log.info("AuthenticationSuccess targetUrl: {}", targetUrl);
 
-        response.setContentType(MediaType.APPLICATION_JSON.toString());
-        PrintWriter writer = response.getWriter();
-        writer.write(objectMapper.writeValueAsString(new SimpleResponse(ResponseCode.SUCCESS.getCode(), targetUrl)));
-        writer.close();
+        ResponseUtil.response(response, objectMapper.writeValueAsString(new SimpleResponse(ResponseCode.SUCCESS.getCode(), targetUrl)));
+
     }
 
 
     public String decideTargetUrl(HttpServletRequest request, HttpServletResponse response) {
         SavedRequest savedRequest = requestCache.getRequest(request, response);
         if (savedRequest == null) {
-            String indexUrl = request.getContextPath() + "/";
-            return indexUrl;
+            return request.getContextPath();
         } else {
             return savedRequest.getRedirectUrl();
         }

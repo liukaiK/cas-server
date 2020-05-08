@@ -24,6 +24,11 @@
     <input th:type="submit" value="退出"/>
 </form>
 
+
+<form th:action="@{/file}" method="post" enctype="multipart/form-data">
+    <input th:type="file" value="上传文件" name="file">
+    <input th:type="submit" value="提交">
+</form>
 </body>
 <script src="../static/lib/jquery-3.4.0.js" th:src="@{/lib/jquery-3.4.0.js}"></script>
 </html>

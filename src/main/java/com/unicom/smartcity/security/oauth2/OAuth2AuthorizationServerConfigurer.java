@@ -41,7 +41,9 @@ public class OAuth2AuthorizationServerConfigurer extends AuthorizationServerConf
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints.tokenStore(tokenStore);
+        endpoints.tokenStore(tokenStore)
+                .pathMapping("/oauth/token", "/oauth/token")
+                .pathMapping("/oauth/authorize", "/oauth/authorize");
     }
 
     @Override

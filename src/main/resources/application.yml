@@ -5,7 +5,9 @@ spring:
   thymeleaf:
     cache: false
   redis:
-    host: 192.168.3.85
+    #    host: 192.168.3.85
+    host: 10.64.8.178
+    password: redis-123456
 logging:
   level:
     com.unicom.smartcity: debug

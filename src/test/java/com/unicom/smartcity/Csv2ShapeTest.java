@@ -1,18 +1,11 @@
 package com.unicom.smartcity;
 
 import org.geotools.data.DataUtilities;
-import org.geotools.data.DefaultTransaction;
-import org.geotools.data.Transaction;
-import org.geotools.data.collection.ListFeatureCollection;
 import org.geotools.data.shapefile.ShapefileDataStore;
 import org.geotools.data.shapefile.ShapefileDataStoreFactory;
-import org.geotools.data.simple.SimpleFeatureCollection;
-import org.geotools.data.simple.SimpleFeatureSource;
-import org.geotools.data.simple.SimpleFeatureStore;
 import org.geotools.feature.SchemaException;
 import org.geotools.feature.simple.SimpleFeatureBuilder;
 import org.geotools.geometry.jts.JTSFactoryFinder;
-import org.geotools.swing.data.JFileDataStoreChooser;
 import org.junit.Test;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -31,31 +24,26 @@ public class Csv2ShapeTest {
     @Test
     public void csv2shp() throws SchemaException, IOException {
 
-        File file = JFileDataStoreChooser.showOpenFile("csv", null);
-        if (file == null) {
-            return;
-        }
-
+        File file = new File("E:\\locations.csv");
 
         final SimpleFeatureType TYPE =
                 DataUtilities.createType(
                         "Location",
-                        "the_geom:Point:srid=4326,"
+                        "111111,"
                                 + // <- the geometry attribute: Point type
-                                "name:String,"
+                                "222222,"
                                 + // <- a String attribute
-                                "number:Integer" // a number attribute
+                                "333333333" // a number attribute
                 );
 
         System.out.println("TYPE:" + TYPE);
 
-        List<SimpleFeature> features = new ArrayList<>();
 
-        GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory();
-
+        List<SimpleFeature> simpleFeatureList = new ArrayList<>();
 
         SimpleFeatureBuilder featureBuilder = new SimpleFeatureBuilder(TYPE);
 
+        GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             /* First line of the data file is the header */
@@ -66,28 +54,40 @@ public class Csv2ShapeTest {
                 if (line.trim().length() > 0) { // skip blank lines
                     String tokens[] = line.split("\\,");
 
+
                     double latitude = Double.parseDouble(tokens[0]);
                     double longitude = Double.parseDouble(tokens[1]);
                     String name = tokens[2].trim();
                     int number = Integer.parseInt(tokens[3].trim());
 
-                    /* Longitude (= x coord) first ! */
+
+                    System.out.println(latitude + " " + longitude + " " + name + " " + number);
+
                     Point point = geometryFactory.createPoint(new Coordinate(longitude, latitude));
 
+
                     featureBuilder.add(point);
-                    featureBuilder.add(name);
-                    featureBuilder.add(number);
-                    SimpleFeature feature = featureBuilder.buildFeature(null);
-                    features.add(feature);
+
+                    SimpleFeature simpleFeature = featureBuilder.buildFeature("1");
+
+
+                    simpleFeatureList.add(simpleFeature);
+
+
                 }
             }
+        }
+
+
+        for (SimpleFeature simpleFeature : simpleFeatureList) {
+            System.out.println(simpleFeature);
         }
 
 
         /*
          * Get an output file name and create the new shapefile
          */
-        File newFile = getNewShapeFile(file);
+        File newFile = new File("E:\\locations.shp");
 
         ShapefileDataStoreFactory dataStoreFactory = new ShapefileDataStoreFactory();
 
@@ -103,79 +103,6 @@ public class Csv2ShapeTest {
         newDataStore.createSchema(TYPE);
 
 
-        /*
-         * Write the features to the shapefile
-         */
-        Transaction transaction = new DefaultTransaction("create");
-
-        String typeName = newDataStore.getTypeNames()[0];
-        SimpleFeatureSource featureSource = newDataStore.getFeatureSource(typeName);
-        SimpleFeatureType SHAPE_TYPE = featureSource.getSchema();
-        /*
-         * The Shapefile format has a couple limitations:
-         * - "the_geom" is always first, and used for the geometry attribute name
-         * - "the_geom" must be of type Point, MultiPoint, MuiltiLineString, MultiPolygon
-         * - Attribute names are limited in length
-         * - Not all data types are supported (example Timestamp represented as Date)
-         *
-         * Each data store has different limitations so check the resulting SimpleFeatureType.
-         */
-        System.out.println("SHAPE:" + SHAPE_TYPE);
-
-        if (featureSource instanceof SimpleFeatureStore) {
-            SimpleFeatureStore featureStore = (SimpleFeatureStore) featureSource;
-            /*
-             * SimpleFeatureStore has a method to add features from a
-             * SimpleFeatureCollection object, so we use the ListFeatureCollection
-             * class to wrap our list of features.
-             */
-            SimpleFeatureCollection collection = new ListFeatureCollection(TYPE, features);
-            featureStore.setTransaction(transaction);
-            try {
-                featureStore.addFeatures(collection);
-                transaction.commit();
-            } catch (Exception problem) {
-                problem.printStackTrace();
-                transaction.rollback();
-            } finally {
-                transaction.close();
-            }
-            System.exit(0); // success!
-        } else {
-            System.out.println(typeName + " does not support read/write access");
-            System.exit(1);
-        }
-    }
-
-
-    /**
-     * Prompt the user for the name and path to use for the output shapefile
-     *
-     * @param csvFile the input csv file used to create a default shapefile name
-     * @return name and path for the shapefile as a new File object
-     */
-    private static File getNewShapeFile(File csvFile) {
-        String path = csvFile.getAbsolutePath();
-        String newPath = path.substring(0, path.length() - 4) + ".shp";
-
-        JFileDataStoreChooser chooser = new JFileDataStoreChooser("shp");
-        chooser.setDialogTitle("Save shapefile");
-        chooser.setSelectedFile(new File(newPath));
-
-        int returnVal = chooser.showSaveDialog(null);
-
-        if (returnVal != JFileDataStoreChooser.APPROVE_OPTION) {
-            // the user cancelled the dialog
-            System.exit(0);
-        }
-
-        File newFile = chooser.getSelectedFile();
-        if (newFile.equals(csvFile)) {
-            System.out.println("Error: cannot replace " + csvFile);
-            System.exit(0);
-        }
-
-        return newFile;
     }
 
 }

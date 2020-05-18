@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
  * @author liukai
  */
 @Configuration
-public class OAuth2TokenConfig {
+public class OAuth2TokenConfigurer {
 
     @Bean
     public TokenStore tokenStore(RedisConnectionFactory redisConnectionFactory) {

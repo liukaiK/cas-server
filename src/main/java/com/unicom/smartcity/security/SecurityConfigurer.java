@@ -2,6 +2,7 @@ package com.unicom.smartcity.security;
 
 import com.unicom.smartcity.properties.SystemProperties;
 import com.unicom.smartcity.security.oauth2.OAuth2PermissionFilter;
+import com.unicom.smartcity.service.PasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -28,6 +29,9 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
+
+    @Autowired
+    private PasswordService passwordService;
 
     @Autowired
     private SystemProperties systemProperties;
@@ -61,7 +65,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("unicom").password("$2a$10$MRvz/BeD7LsXNFfByECtfe7mQb21z7SNw.RwUXCAkKIc2XQ22qHg2").roles("CAS_ADMIN");
+        auth.inMemoryAuthentication().withUser("unicom").password(passwordService.getDefaultPassword()).roles("CAS_ADMIN");
     }
 
 }

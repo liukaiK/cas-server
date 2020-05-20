@@ -11,7 +11,7 @@ public class PasswordServiceImpl implements PasswordService {
 
     @Override
     public String getDefaultPassword() {
-        return "$2a$10$MRvz/BeD7LsXNFfByECtfe7mQb21z7SNw.RwUXCAkKIc2XQ22qHg2";
+        return "{bcrypt}$2a$10$MRvz/BeD7LsXNFfByECtfe7mQb21z7SNw.RwUXCAkKIc2XQ22qHg2";
     }
 
 }

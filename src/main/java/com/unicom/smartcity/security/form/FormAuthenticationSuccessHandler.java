@@ -32,7 +32,7 @@ public class FormAuthenticationSuccessHandler implements AuthenticationSuccessHa
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 
-        String targetUrl = decideTargetUrl(request, response);
+        String targetUrl = determineTargetUrl(request, response);
 
         log.info("AuthenticationSuccess targetUrl: {}", targetUrl);
 
@@ -41,7 +41,7 @@ public class FormAuthenticationSuccessHandler implements AuthenticationSuccessHa
     }
 
 
-    public String decideTargetUrl(HttpServletRequest request, HttpServletResponse response) {
+    public String determineTargetUrl(HttpServletRequest request, HttpServletResponse response) {
         SavedRequest savedRequest = requestCache.getRequest(request, response);
         if (savedRequest == null) {
             return request.getContextPath();

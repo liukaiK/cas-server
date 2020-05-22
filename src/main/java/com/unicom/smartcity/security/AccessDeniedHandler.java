@@ -6,6 +6,7 @@ import com.unicom.smartcity.pojo.SimpleResponse;
 import com.unicom.smartcity.util.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.csrf.CsrfException;
 import org.springframework.stereotype.Component;
 
@@ -25,8 +26,8 @@ public class AccessDeniedHandler implements org.springframework.security.web.acc
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        log.error("访问没有权限", accessDeniedException);
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
+        log.debug("{} 没有访问 {} 权限", SecurityContextHolder.getContext().getAuthentication().getPrincipal(), request.getRequestURI(), accessDeniedException);
 
         if (accessDeniedException instanceof CsrfException) {
             ResponseUtil.response(response, objectMapper.writeValueAsString(new SimpleResponse(ResponseCode.ACCESS_DENIED.getCode(), ResponseCode.ACCESS_DENIED.getMessage())));

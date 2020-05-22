@@ -10,6 +10,7 @@ spring:
     password: redis-123456
 logging:
   level:
+    web: debug
     com.unicom.smartcity: debug
 
 system:

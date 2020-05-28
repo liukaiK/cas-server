@@ -4,7 +4,9 @@ import com.unicom.smartcity.properties.SystemProperties;
 import com.unicom.smartcity.security.oauth2.OAuth2PermissionFilter;
 import com.unicom.smartcity.service.PasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,6 +46,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .antMatcher("/**")
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, systemProperties.getLoginUrl()).permitAll()
+                .mvcMatchers("/.well-known/jwks.json").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage(systemProperties.getLoginUrl())
@@ -69,6 +72,12 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("unicom").password(passwordService.getDefaultPassword()).roles("CAS_ADMIN");
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
 }

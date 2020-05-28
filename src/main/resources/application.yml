@@ -12,3 +12,8 @@ logging:
 system:
   login-url: /login
   logout-url: /logout
+security:
+  oauth2:
+    resource:
+      jwk:
+        key-set-uri: http://localhost:8080/.well-known/jwks.json

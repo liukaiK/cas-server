@@ -4,6 +4,11 @@ server:
 spring:
   thymeleaf:
     cache: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/.well-known/jwks.json
 logging:
   level:
     web: debug
@@ -12,8 +17,3 @@ logging:
 system:
   login-url: /login
   logout-url: /logout
-security:
-  oauth2:
-    resource:
-      jwk:
-        key-set-uri: http://localhost:8080/.well-known/jwks.json

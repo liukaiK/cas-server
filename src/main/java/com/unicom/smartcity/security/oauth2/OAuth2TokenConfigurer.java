@@ -9,6 +9,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import java.math.BigInteger;
 import java.security.KeyFactory;
 import java.security.KeyPair;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.spec.RSAPrivateKeySpec;
 import java.security.spec.RSAPublicKeySpec;
 
@@ -46,7 +48,14 @@ class KeyConfig {
             RSAPublicKeySpec publicSpec = new RSAPublicKeySpec(new BigInteger(modulus), new BigInteger(exponent));
             RSAPrivateKeySpec privateSpec = new RSAPrivateKeySpec(new BigInteger(modulus), new BigInteger(privateExponent));
             KeyFactory factory = KeyFactory.getInstance("RSA");
-            return new KeyPair(factory.generatePublic(publicSpec), factory.generatePrivate(privateSpec));
+            PublicKey publicKey = factory.generatePublic(publicSpec);
+            PrivateKey privateKey = factory.generatePrivate(privateSpec);
+
+            System.out.println("privateKey = " + privateKey);
+
+            System.out.println("publicKey = " + publicKey);
+
+            return new KeyPair(publicKey, privateKey);
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }

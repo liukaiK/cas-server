@@ -50,7 +50,7 @@ public class OAuth2AuthorizationServerConfigurer extends AuthorizationServerConf
                 .secret(passwordService.getDefaultPassword())
                 .autoApprove(true)
                 .redirectUris("http://127.0.0.1:8081/login/oauth2/code/cas", "http://localhost:8081/login/oauth2/code/cas")
-                .accessTokenValiditySeconds(300)
+                .accessTokenValiditySeconds(1000)
                 .authorizedGrantTypes(AuthorizationGrantType.AUTHORIZATION_CODE.getValue(), AuthorizationGrantType.PASSWORD.getValue())
                 .scopes("USER_INFO")
                 .resourceIds("cas-resource-server");
@@ -68,6 +68,8 @@ public class OAuth2AuthorizationServerConfigurer extends AuthorizationServerConf
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
+        security.checkTokenAccess("permitAll()")
+                .tokenKeyAccess("permitAll()");
 
     }
 

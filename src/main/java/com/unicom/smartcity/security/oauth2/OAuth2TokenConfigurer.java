@@ -51,10 +51,6 @@ class KeyConfig {
             PublicKey publicKey = factory.generatePublic(publicSpec);
             PrivateKey privateKey = factory.generatePrivate(privateSpec);
 
-            System.out.println("privateKey = " + privateKey);
-
-            System.out.println("publicKey = " + publicKey);
-
             return new KeyPair(publicKey, privateKey);
         } catch (Exception e) {
             throw new IllegalArgumentException(e);

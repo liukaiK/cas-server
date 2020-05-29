@@ -4,16 +4,7 @@ server:
 spring:
   thymeleaf:
     cache: false
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: http://localhost:8080/.well-known/jwks.json
 logging:
   level:
     web: debug
     com.unicom.smartcity: debug
-
-system:
-  login-url: /login
-  logout-url: /logout

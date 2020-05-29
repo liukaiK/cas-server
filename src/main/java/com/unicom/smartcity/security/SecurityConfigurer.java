@@ -1,6 +1,5 @@
 package com.unicom.smartcity.security;
 
-import com.unicom.smartcity.properties.SystemProperties;
 import com.unicom.smartcity.security.oauth2.OAuth2PermissionFilter;
 import com.unicom.smartcity.service.PasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,27 +36,28 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Autowired
     private PasswordService passwordService;
 
-    @Autowired
-    private SystemProperties systemProperties;
+    private final static String LOGIN_URL = "/login";
+
+    private final static String LOGOUT_URL = "/logout";
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, systemProperties.getLoginUrl()).permitAll()
+                .antMatchers(HttpMethod.GET, LOGIN_URL).permitAll()
                 .mvcMatchers("/.well-known/jwks.json").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage(systemProperties.getLoginUrl())
+                .formLogin().loginPage(LOGIN_URL)
                 .successHandler(formAuthenticationSuccessHandler)
                 .failureHandler(formAuthenticationFailureHandler)
                 .and()
-                .logout().logoutSuccessUrl(systemProperties.getLoginUrl())
+                .logout().logoutSuccessUrl(LOGIN_URL)
                 //退出支持GET请求
-                .logoutRequestMatcher(new AntPathRequestMatcher(systemProperties.getLogoutUrl(), "GET"))
+                .logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT_URL, "GET"))
                 .and()
-                .exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(systemProperties.getLoginUrl()))
+                .exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(LOGIN_URL))
                 .accessDeniedHandler(accessDeniedHandler)
                 .and()
                 .addFilterAfter(new OAuth2PermissionFilter(), FilterSecurityInterceptor.class);

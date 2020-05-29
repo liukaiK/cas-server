@@ -68,8 +68,8 @@ public class OAuth2AuthorizationServerConfigurer extends AuthorizationServerConf
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
-        security.checkTokenAccess("permitAll()")
-                .tokenKeyAccess("permitAll()");
+        security.tokenKeyAccess("permitAll()")
+                .checkTokenAccess("isAuthenticated()");
 
     }
 

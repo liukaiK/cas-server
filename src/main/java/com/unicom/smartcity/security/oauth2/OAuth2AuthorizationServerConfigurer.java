@@ -53,7 +53,14 @@ public class OAuth2AuthorizationServerConfigurer extends AuthorizationServerConf
                 .accessTokenValiditySeconds(1000)
                 .authorizedGrantTypes(AuthorizationGrantType.AUTHORIZATION_CODE.getValue(), AuthorizationGrantType.PASSWORD.getValue())
                 .scopes("USER_INFO")
-                .resourceIds("cas-resource-server");
+                .and()
+                .withClient("king")
+                .secret(passwordService.getDefaultPassword())
+                .autoApprove(true)
+                .redirectUris("http://127.0.0.1:7070/login/oauth2/code/cas", "http://localhost:7070/login/oauth2/code/cas")
+                .accessTokenValiditySeconds(1000)
+                .authorizedGrantTypes(AuthorizationGrantType.AUTHORIZATION_CODE.getValue(), AuthorizationGrantType.PASSWORD.getValue())
+                .scopes("USER_INFO");
     }
 
     @Override
